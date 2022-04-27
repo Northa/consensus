@@ -13,8 +13,8 @@ REST = ""
 RPC = ""
 
 # umee example
-# REST = 'https://api.bottlenose.main.network.umee.cc'
-# RPC = "https://rpc.aphrodite.main.network.umee.cc"
+REST = 'https://api.bottlenose.main.network.umee.cc'
+RPC = "https://rpc.aphrodite.main.network.umee.cc"
 
 # example 2
 # REST = 'http://1.1.1.1:1317'

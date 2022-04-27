@@ -47,9 +47,24 @@ $ pipenv sync
   - Cosmic Horizon  
   - Kyve  
   
-  
-  
 </details>
 
+<details>
+  <summary>Known issues:</summary>
+  Appers on some machines
+
+  ```
+
+  /usr/local/lib/python3.8/dist-packages/pkg_resources/__init__.py:123: PkgResourcesDeprecationWarning: 0.1.36ubuntu1 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/local/lib/python3.8/dist-packages/pkg_resources/__init__.py:123: PkgResourcesDeprecationWarning: 0.23ubuntu1 is an invalid version and will not be supported in a future release
+  warnings.warn(
+  ```
+
+  Fast solution: ```$ export PYTHONWARNINGS="ignore"```
+
+
+
+</details>
 
 ![Example](https://github.com/Northa/consensus/blob/main/scr/Screenshot%20from%202022-04-27%2008-53-01.jpg?raw=true "EX")
