@@ -38,13 +38,14 @@ $ pipenv sync
 </details>
 
 <details>
-  <summary>Tesed chains:</summary>
-  - Evmos evmosdryrun_9009-1
-  - Evmos evmos_9000-4
-  - Umee
-  - Archway
-  - Cosmic Horizon
-  - Kyve
+  <summary>Tesed chains:</summary>  
+  
+  - Evmos evmosdryrun_9009-1  
+  - Evmos evmos_9000-4  
+  - Umee  
+  - Archway  
+  - Cosmic Horizon  
+  - Kyve  
   
   
   
