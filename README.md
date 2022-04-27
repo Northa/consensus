@@ -7,7 +7,6 @@ A brief info of the state of the consensus
   *  Ubuntu 20.04 
   *  python3.8 
   *  pip3 
-  *  pipenv
   *  For the correct work of the application you should configure RPC :26657 and REST :1317 endpoints. For example:  
   http://8.8.8.8:26657 and http://8.8.8.8:1317
   
@@ -22,8 +21,7 @@ A brief info of the state of the consensus
 ```sh
 $ cd && git clone https://github.com/Northa/consensus.git && cd consensus
 $ sudo apt install python3-pip
-$ pip3 install pipenv
-$ pipenv sync
+$ pip3 install -r requirements.txt
 
 ```  
   
@@ -34,7 +32,7 @@ $ pipenv sync
   
   Once configured you can run the app by following:
   
-  ```$ pipenv run python3 consensus.py ```
+  ```$ python3 consensus.py ```
 </details>
 
 <details>
@@ -49,22 +47,5 @@ $ pipenv sync
   
 </details>
 
-<details>
-  <summary>Known issues:</summary>
-  Appers on some machines
-
-  ```
-
-  /usr/local/lib/python3.8/dist-packages/pkg_resources/__init__.py:123: PkgResourcesDeprecationWarning: 0.1.36ubuntu1 is an invalid version and will not be supported in a future release
-  warnings.warn(
-/usr/local/lib/python3.8/dist-packages/pkg_resources/__init__.py:123: PkgResourcesDeprecationWarning: 0.23ubuntu1 is an invalid version and will not be supported in a future release
-  warnings.warn(
-  ```
-
-  Fast solution: ```$ export PYTHONWARNINGS="ignore"```
-
-
-
-</details>
 
 ![Example](https://github.com/Northa/consensus/blob/main/scr/Screenshot%20from%202022-04-27%2008-53-01.jpg?raw=true "EX")
