@@ -36,7 +36,7 @@ $ pip3 install -r requirements.txt
 </details>
 
 <details>
-  <summary>Tesed chains:</summary>  
+  <summary>Tested chains:</summary>  
   
   - Evmos evmosdryrun_9009-1  
   - Evmos evmos_9000-4  
@@ -44,6 +44,9 @@ $ pip3 install -r requirements.txt
   - Archway  
   - Cosmic Horizon  
   - Kyve  
+  - Kichain
+  - Konstellation
+  - Stargaze
   
 </details>
 
