@@ -59,6 +59,7 @@ $ pip3 install -r requirements.txt
   - Kichain
   - Konstellation
   - Stargaze
+  - AssetMantle
   
 </details>
 
