@@ -2,6 +2,18 @@
 A brief info of the state of the consensus
 
 <details>
+  <summary>Quick start:</summary>
+
+```sh
+cd && git clone https://github.com/Northa/consensus.git && cd consensus
+sudo apt install python3-pip -y < "/dev/null"
+pip3 install -r requirements.txt
+python3 consensus.py
+
+```  
+</details>
+
+<details>
   <summary>Requirements:</summary>
   
   *  Ubuntu 20.04 
