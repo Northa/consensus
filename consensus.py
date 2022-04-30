@@ -7,19 +7,14 @@ import math
 from sys import exit
 from time import sleep
 # korellia
-ERR_MSG = colored(f"[ERR] API endpoint api unreachable!\nDiscord: Yep++#9963", 'red')
+ERR_MSG = colored(f"[ERR] API endpoint unreachable!\n[ERR]Be sure you have enabled your API (you can enable this in your app.toml config file)\nDiscord: Yep++#9963", 'red')
 
 REST = ""
 RPC = ""
 
-# umee example
-REST = 'https://api.bottlenose.main.network.umee.cc'
-RPC = "https://rpc.aphrodite.main.network.umee.cc"
-
-# example 2
-# REST = 'http://1.1.1.1:1317'
-# RPC = "http://1.1.1.1:26657"
-
+# default ports
+REST = "http://127.0.0.1:1317"
+RPC = "http://127.0.0.1:26657"
 
 def handle_request(api: str, pattern: str, raw=False):
     try:
