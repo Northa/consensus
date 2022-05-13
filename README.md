@@ -17,7 +17,8 @@ python3 consensus.py
   *  Ubuntu 20.04 
   *  python3.8 
   *  pip3 
-  *  For the correct work of the application you should configure RPC :26657 and REST :1317 endpoints. For example:  
+  *  For the correct work of the application you should configure RPC :26657 and REST :1317 endpoints.  
+  For example:  
   ```REST = 'http://1.1.1.1:1317'```
   ```RPC = "http://1.1.1.1:26657"```
   
@@ -27,7 +28,7 @@ python3 consensus.py
 <details>
   <summary>Installing:</summary>
   
-  #### Technically, the installation itself is cloning the repo, setting dependencies, and providing 2 variables
+  #### Technically, the installation itself is cloning the repo and providing 2 variables
 
 ```sh
 $ cd && git clone https://github.com/Northa/consensus.git && cd consensus
@@ -62,4 +63,4 @@ $ cd && git clone https://github.com/Northa/consensus.git && cd consensus
 </details>
 
 
-![Example](https://github.com/Northa/consensus/blob/main/scr/Screenshot%20from%202022-04-27%2008-53-01.jpg?raw=true "EX")
+![Example](https://github.com/Northa/consensus/blob/main/screenshots/Screenshot%20from%202022-04-27%2008-53-01.jpg?raw=true "EX")
