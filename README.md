@@ -6,8 +6,6 @@ A brief info of the state of the consensus
 
 ```sh
 cd && git clone https://github.com/Northa/consensus.git && cd consensus
-sudo apt install python3-pip -y < "/dev/null"
-pip3 install -r requirements.txt
 python3 consensus.py
 
 ```  
@@ -20,7 +18,8 @@ python3 consensus.py
   *  python3.8 
   *  pip3 
   *  For the correct work of the application you should configure RPC :26657 and REST :1317 endpoints. For example:  
-  http://8.8.8.8:26657 and http://8.8.8.8:1317
+  ```REST = 'http://1.1.1.1:1317'```
+  ```RPC = "http://1.1.1.1:26657"```
   
   
 </details>
@@ -32,9 +31,6 @@ python3 consensus.py
 
 ```sh
 $ cd && git clone https://github.com/Northa/consensus.git && cd consensus
-$ sudo apt install python3-pip
-$ pip3 install -r requirements.txt
-
 ```  
   
   Next open consensus.py in editor and replace REST/RPC variables with an appropriate values.  

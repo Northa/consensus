@@ -1,32 +1,27 @@
 #  Github https://github.com/Northa
 
-import requests
-from termcolor import colored
-import emoji
+from urllib import request
 import math
 from sys import exit
-from time import sleep
-# korellia
-ERR_MSG = colored(f"[ERR] API endpoint unreachable!\n[ERR]Be sure you have enabled your API (you can enable this in your app.toml config file)\nDiscord: Yep++#9963", 'red')
+from json import loads
 
-REST = ""
-RPC = ""
+ERR_MSG = f"\033[91m[ERR] API endpoint unreachable: api\n" \
+          f"[ERR] Be sure you have enabled your API " \
+          f"(you can enable this in your app.toml config file)\n" \
+          f"Bugreports Discord: Yep++#9963\033[0m"
 
 # default ports
 REST = "http://127.0.0.1:1317"
 RPC = "http://127.0.0.1:26657"
 
-def handle_request(api: str, pattern: str, raw=False):
+
+def handle_request(api: str, pattern: str):
     try:
 
-        if not raw:
-            response = requests.get(f"{api}/{pattern}").json()
-            return response
-
-        response = requests.get(f"{api}/{pattern}").json()
+        response = loads(request.urlopen(f"{api}/{pattern}").read())
         return response if response is not None else exit(ERR_MSG.replace('api', api))
 
-    except Exception as err:
+    except Exception:
         exit(ERR_MSG.replace('api', api))
 
 
@@ -85,13 +80,14 @@ def get_validators():
 
 
 def get_bonded():
-    result = handle_request(REST, '/cosmos/staking/v1beta1/pool', True)['pool']
+    result = handle_request(REST, '/cosmos/staking/v1beta1/pool')['pool']
     return result
 
 
-def strip_emoji(text):
-    new_text = emoji.replace_emoji(text, replace='')
-    return new_text
+def strip_emoji_non_ascii(moniker):
+    # moniker = emoji.replace_emoji(moniker, replace='')
+    moniker = "".join([letter for letter in moniker if letter.isascii()])
+    return moniker[:15].strip().lstrip()
 
 
 def get_validators_rest():
@@ -103,7 +99,7 @@ def get_validators_rest():
         validator_vp = int(int(validator["tokens"]))
         vp_percentage = round((100 / bonded_tokens) * validator_vp, 3)
         moniker = validator["description"]["moniker"][:15].strip()
-        moniker = strip_emoji(moniker)
+        moniker = strip_emoji_non_ascii(moniker)
         validator_dict[validator["consensus_pubkey"]["value"]] = {
                                  "moniker": moniker,
                                  "address": validator["operator_address"],
@@ -149,7 +145,7 @@ def list_columns(obj, cols=3, columnwise=True, gap=8):
 
 
 def get_chain_id():
-    response = handle_request(REST, 'node_info', True)
+    response = handle_request(REST, 'node_info')
     chain_id = response['node_info']['network']
     return chain_id
 
@@ -161,19 +157,20 @@ def colorize_output(validators):
         moniker = val['moniker']
 
         if val['voted'] != 'nil-Vote':
-            stat = colored(f"{num+1:<3} {'ONLINE':<8} ", 'green')
+            stat = f"\033[92m{num+1:<3} {'ONLINE':<8} \033[0m"
             result.append(f"{stat} {moniker:<18} {vp_perc}")
 
         else:
-            stat = colored(f"{num+1:<3} {'OFFLINE':<8} ", 'red')
+            stat = f"\033[91m{num+1:<3} {'OFFLINE':<8} \033[0m"
             result.append(f"{stat} {moniker:<18} {vp_perc}")
 
     return result
 
+
 def calculate_colums(result):
-    if len(result) < 50:
+    if len(result) <= 30:
         return list_columns(result, cols=1)
-    elif 50 < len(result) <=100 :
+    elif 30 < len(result) <= 100:
         return list_columns(result, cols=2)
     elif 100 < len(result) <= 150:
         return list_columns(result, cols=3)
@@ -194,16 +191,17 @@ def get_moniker_by_pub_key(pub_key, height):
     for validator in response['hist']['valset']:
 
         if pub_key in validator['consensus_pubkey']['key']:
-            return strip_emoji(validator['description']['moniker'])
+            return strip_emoji_non_ascii(validator['description']['moniker'])
 
 
 def get_evidence(height):
-    evidences = handle_request(REST, '/cosmos/evidence/v1beta1/evidence', True)
+    evidences = handle_request(REST, '/cosmos/evidence/v1beta1/evidence')
     for evidence in evidences['evidence']:
         if int(height) - int(evidence['height']) < 1000:
             pub_key = get_pubkey_by_valcons(evidence['consensus_address'], evidence['height']).strip()
             moniker = get_moniker_by_pub_key(pub_key, evidence['height'])
-            print(colored(f"Evidence: {moniker}\nHeight: {evidence['height']} {evidence['consensus_address']} power: {evidence['power']}\n", 'yellow'))
+            # print(colored(f"Evidence: {moniker}\nHeight: {evidence['height']} {evidence['consensus_address']} power: {evidence['power']}\n", 'yellow'))
+            print(f"\033[93mEvidence: {moniker}\nHeight: {evidence['height']} {evidence['consensus_address']} power: {evidence['power']}\033[0m\n")
 
 
 def main(STATE):
@@ -220,12 +218,7 @@ def main(STATE):
     print(calculate_colums(result))
 
 
-
 if __name__ == '__main__':
     STATE = handle_request(RPC, 'dump_consensus_state')
 
     exit(main(STATE))
-
-
-
-
