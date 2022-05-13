@@ -46,8 +46,8 @@ $ cd && git clone https://github.com/Northa/consensus.git && cd consensus
 <details>
   <summary>Tested chains:</summary>  
   
-  - Evmos evmosdryrun_9009-1  
-  - Evmos evmos_9000-4  
+  - Evmos mainnet
+  - Evmos testnet
   - Umee  
   - Archway  
   - Cosmic Horizon  
@@ -56,6 +56,8 @@ $ cd && git clone https://github.com/Northa/consensus.git && cd consensus
   - Konstellation
   - Stargaze
   - AssetMantle
+  - Pylons
+  - Deweb
   
 </details>
 
