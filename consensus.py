@@ -180,7 +180,6 @@ def calculate_colums(result):
 
 def get_pubkey_by_valcons(valcons, height):
     response = handle_request(REST, f"/validatorsets/{height}")
-    print(response)
     for validator in response['result']['validators']:
         if valcons in validator['address']:
             return validator['pub_key']['value']
