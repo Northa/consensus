@@ -154,15 +154,16 @@ def colorize_output(validators):
     result = []
     for num, val in enumerate(validators):
         vp_perc = f"{val['voting_power_perc']:<7}"
+        vp = f"{int(val['voting_power'] / 1000000)}"
         moniker = val['moniker']
 
         if val['voted'] != 'nil-Vote':
             stat = f"\033[92m{num+1:<3} {'ONLINE':<8} \033[0m"
-            result.append(f"{stat} {moniker:<18} {vp_perc}")
+            result.append(f"{stat} {moniker:<18} {vp}  ({vp_perc})")
 
         else:
             stat = f"\033[91m{num+1:<3} {'OFFLINE':<8} \033[0m"
-            result.append(f"{stat} {moniker:<18} {vp_perc}")
+            result.append(f"{stat} {moniker:<18} {vp}  ({vp_perc})")
 
     return result
 
