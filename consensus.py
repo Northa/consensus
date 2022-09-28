@@ -14,7 +14,6 @@ ERR_MSG = f"\033[91m[ERR] API endpoint unreachable: api\n" \
 REST = "http://127.0.0.1:1317"
 RPC = "http://127.0.0.1:26657"
 
-
 def handle_request(api: str, pattern: str):
     try:
 
@@ -91,23 +90,27 @@ def strip_emoji_non_ascii(moniker):
 
 
 def get_validators_rest():
+    validator_dict = dict()
     bonded_tokens = int(get_bonded()["bonded_tokens"])
-    validator_dict = {}
-    validators = handle_request(REST, '/staking/validators')["result"]
+    validators = handle_request(REST, '/cosmos/staking/v1beta1/validators?status=BOND_STATUS_BONDED&pagination.limit=2000')
+    # print(type(validators))
+    # for i in validators:print(i)
 
-    for validator in validators:
-        validator_vp = int(int(validator["tokens"]))
+    for validator in validators['validators']:
+        # print(validator)
+        validator_vp = int(validator["tokens"])
         vp_percentage = round((100 / bonded_tokens) * validator_vp, 3)
         moniker = validator["description"]["moniker"][:15].strip()
         moniker = strip_emoji_non_ascii(moniker)
-        validator_dict[validator["consensus_pubkey"]["value"]] = {
+        validator_dict[validator["consensus_pubkey"]["key"]] = {
                                  "moniker": moniker,
                                  "address": validator["operator_address"],
                                  "status": validator["status"],
                                  "voting_power": validator_vp,
                                  "voting_power_perc": f"{vp_percentage}%"}
 
-    return validator_dict, len(validators)
+
+    return validator_dict, len(validators['validators'])
 
 
 def merge_info():
@@ -116,6 +119,7 @@ def merge_info():
     validators = get_validators()
     votes_and_vals = list(zip(votes, validators))
     validator_rest, total_validators = get_validators_rest()
+
     final_list = []
 
     for k, v in votes_and_vals:
@@ -145,9 +149,11 @@ def list_columns(obj, cols=3, columnwise=True, gap=8):
 
 
 def get_chain_id():
-    response = handle_request(REST, 'node_info')
-    chain_id = response['node_info']['network']
+    response = handle_request(REST, '/cosmos/base/tendermint/v1beta1/node_info')
+    # for i in response:print()
+    chain_id = response['default_node_info']['network'] if 'default_node_info' in response else response['node_info']['network']
     return chain_id
+
 
 
 def colorize_output(validators):
@@ -212,7 +218,7 @@ def main(STATE):
             online_vals += 1
 
     print(f"Online: {online_vals}/{total_validators}\n")
-    get_evidence(STATE['result']['round_state']['height'])
+    # get_evidence(STATE['result']['round_state']['height'])
     result = colorize_output(validators)
     print(calculate_colums(result))
 
