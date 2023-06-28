@@ -10,7 +10,7 @@ ERR_MSG = f"\033[91m[ERR] API endpoint unreachable: api\n" \
           f"(you can enable this in your app.toml config file)\n" \
           f"Bugreports Discord: Yep++#9963\033[0m"
 
-# default ports
+# replace with query endpoints
 REST = "http://127.0.0.1:1317"
 RPC = "http://127.0.0.1:26657"
 
@@ -25,7 +25,6 @@ def handle_request(api: str, pattern: str):
 
 
 def get_validator_votes():
-
     validator_votes = []
     votes = STATE['result']['round_state']['votes']
     height = STATE['result']['round_state']['height']
@@ -211,6 +210,8 @@ def get_evidence(height):
 
 def main(STATE):
     validators, total_validators = merge_info()
+    for v in validators:
+        print("validator: ", v)
 
     online_vals = 0
     for num, val in enumerate(validators):
