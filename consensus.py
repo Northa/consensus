@@ -11,13 +11,13 @@ ERR_MSG = f"\033[91m[ERR] API endpoint unreachable: api\n" \
           f"Bugreports Discord: Yep++#9963\033[0m"
 
 # replace with query endpoints
-REST = "http://127.0.0.1:1317"
-RPC = "http://127.0.0.1:26657"
+REST = "https://dydx-ops-rest.kingnodes.com"
+RPC = "https://dydx-ops-rpc.kingnodes.com"
 
 def handle_request(api: str, pattern: str):
     try:
-
-        response = loads(request.urlopen(f"{api}/{pattern}").read())
+        r = request.Request(url=f"{api}/{pattern}",headers={'User-Agent': 'Mozilla/5.0'})
+        response = loads(request.urlopen(r).read())
         return response if response is not None else exit(ERR_MSG.replace('api', api))
 
     except Exception:
