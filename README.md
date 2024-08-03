@@ -9,7 +9,7 @@ cd && git clone https://github.com/Northa/consensus.git && cd consensus
 python3 consensus.py
 ```  
 Autorefresh not yet implemented as a workaround you can use bash trick:  
-```while true; do; sleep 3 && python3 ./consensus.py;done```
+```while true; do sleep 3 && python3 ./consensus.py;done```
 </details>
 
 <details>
